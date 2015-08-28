@@ -1,0 +1,42 @@
+{
+  "name": "grunt-webdev",
+  "dependencies": {
+    "grunt": "^0.4.4",
+    "express": "^4.5.1",
+    "grunt-contrib-compass": "^0.9.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "load-grunt-tasks": "^0.4.0",
+    "grunt-usemin": "^2.3.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-filerev": "^0.2.1",
+    "grunt-transfo": "^0.5.0",
+    "grunt-contrib-sass": "^0.7.3",
+    "grunt-angular-templates": "^0.5.6",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-shell": "^0.7.0",
+    "grunt-bg-shell": "^2.3.1",
+    "body-parser": "^1.6.2",
+    "q": "^1.0.1",
+    "grunt-oss-up": "^0.1.0",
+    "karma": "^0.12.23",
+    "grunt-karma": "^0.9.0",
+    "grunt-jslint": "^1.1.12",
+    "grunt-contrib-jshint": "^0.10.0",
+    "karma-jasmine": "^0.1.5",
+    "karma-chrome-launcher": "^0.1.4",
+    "transfo-unifyurl": "git+https://github.com/eldereal/transfo-unifyurl.git",
+    "express-http-proxy": "git+ssh://git@github.com:eldereal/express-http-proxy.git",
+    "zeparser": "0.0.7",
+    "cli-color": "^0.3.2"
+  },
+  "version": "0.1.2",
+  "description": "build web apps",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:eldereal/grunt-webdev.git"
+  }
+}
