@@ -29,7 +29,7 @@
     "karma-jasmine": "^0.1.5",
     "karma-chrome-launcher": "^0.1.4",
     "transfo-unifyurl": "git+https://github.com/eldereal/transfo-unifyurl.git",
-    "express-http-proxy": "git+ssh://git@github.com:eldereal/express-http-proxy.git",
+    "express-http-proxy": "git+https://github.com/eldereal/express-http-proxy.git",
     "zeparser": "0.0.7",
     "cli-color": "^0.3.2"
   },
@@ -37,6 +37,7 @@
   "description": "build web apps",
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:eldereal/grunt-webdev.git"
-  }
+    "url": "https://eldereal@bitbucket.org/eldereal/grunt-webdev.git"
+  },
+  "license" : "WTFPL" 
 }
