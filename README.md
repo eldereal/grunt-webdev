@@ -54,7 +54,7 @@ ROOT
     <link href="sass/main.scss" rel="stylesheet" type="text/sass" />
     <!-- endbuild -->
 
- 
+
 `build:compass`说明这一段使用compass文件处理器去处理，除了comapss，目前还有css、js、ngtemplate几种。后面跟的就是一个绝对地址，从build到endbuild之间所有的link或script标记会被合成一个文件，放在指定的地址上。
 
 其它的资源都在主网页中通过相对地址引用。如果该页面是一个纯本地页面，不需要访问API，应该可以直接在浏览器中打开，所有资源路径都应该是正确的。
@@ -65,11 +65,12 @@ ROOT
 ```js
 {
     //阿里云OSS的配置，用于上传静态文件
-    ossconfig: { 
+    ossconfig: {
         accessKeyId: "...",
         accessKeySecret: "...",
         bucket: "bucket-name",
-        url: "http://bucket-name.oss-cn-hangzhou.aliyuncs.com/"
+        region: "oss-cn-hangzhou",
+        url: "//bucket-name.oss-cn-hangzhou.aliyuncs.com/"
     },
     app: {
         options: {
@@ -93,7 +94,8 @@ ROOT
                     accessKeyId: "<%= ossconfig.accessKeyId %>",
                     accessKeySecret: "<%= ossconfig.accessKeySecret %>",
                     bucket: "<%= ossconfig.bucket %>",
-                    url: "<%= ossconfig.url %>" 
+                    region: "<%= ossconfig.bucket %>",
+                    url: "<%= ossconfig.url %>"
                 }
             },
             karma: {
@@ -104,23 +106,14 @@ ROOT
             }
         },
     },
-    django:{
-        //django运行配置
-        default: {
-            manager: "<%= path.serverPath %>/manage.py",
-            port: "<%= path.serverPort %>"
-        }
-    },
-    proxy: {
-        //代理服务器运行配置
-        default: {
-            port: "<%= path.proxyPort %>",
-            //根目录映射位置
-            defaultRoute: "http://localhost:8001/",
-            //单独配置路径映射
-            routes: {           
-                "/api": "http://example.com/api"
-            }
+    oss: {
+        //引用OSS配置
+        options: {      
+            accessKeyId: "<%= ossconfig.accessKeyId %>",
+            accessKeySecret: "<%= ossconfig.accessKeySecret %>",
+            bucket: "<%= ossconfig.bucket %>",
+            region: "<%= ossconfig.bucket %>",
+            url: "<%= ossconfig.url %>"
         }
     }
 }
@@ -149,7 +142,3 @@ ROOT
 
 > 一个常见的问题是Angular的Injector如果接受一个函数，会解析函数的参数名，作为依赖的模块名字。
 > 例如`angular.module('...').factory('name', function ($scope){})`，此时`$scope`会在压缩时变成别的名字，就会出错。解决方法是使用数组型的依赖，将上述代码变成`angular.module('...').factory('name', ['$scope', function ($scope){}])`可以解决这个问题。
-
-
-
-
