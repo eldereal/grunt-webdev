@@ -16,8 +16,14 @@ module.exports = function(grunt, opt){
         name:'transfo',
         createConfig: function(context, block) {
             var targetName = block.dest + "-extscss";
-
-            var options = createTransfoUnifyUrlConfig({dest: 'assets', url: '../../../transfo/assets', extensions: ['.scss']});
+            var exts = [];
+            context.inFiles.forEach(function(p) {
+                var ext = path.extname(p);
+                if(exts.indexOf(ext)<0){
+                    exts.push(ext);
+                }
+            });
+            var options = createTransfoUnifyUrlConfig({dest: 'assets', url: '../../../transfo/assets', extensions: exts});
             if(opt){
             	if(opt.transforms){
             		options.transforms = options.transforms.concat(opt.transforms);
