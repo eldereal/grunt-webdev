@@ -5,7 +5,7 @@ module.exports = function(grunt){
                 watch: {
                     tasks: ['rebuild'],
                     target: 'app',
-                    options: {                        
+                    options: {
                         spawn: false
                     }
                 },
@@ -19,11 +19,11 @@ module.exports = function(grunt){
                     options: { keepSpecialComments: 0 }
                 },
                 oss: {
-                    options: {      
+                    options: {
                         accessKeyId: "",
                         accessKeySecret: "",
                         bucket: "",
-                        url: "" 
+                        url: ""
                     }
                 },
                 karma: {
@@ -40,7 +40,7 @@ module.exports = function(grunt){
                 }
             },
             'dev': {
-                compass: ['watch', 'exists', 'transfo-copy', 'compass', 'transfo-combine'],
+                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate'],
                 js: ['watch', 'exists', 'concat'],
                 coffee: ['watch', 'exists', 'coffee'],
@@ -48,7 +48,7 @@ module.exports = function(grunt){
                 include: ['watch', 'usemin-include']
             },
             'release': {
-                compass: ['watch', 'exists', 'transfo-copy', 'compass', 'transfo-combine', 'cssmin'],
+                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine', 'cssmin'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate', 'uglify'],
                 js: ['watch', 'exists', 'uglify'],
                 coffee: ['watch', 'exists', 'coffee', 'uglify'],
@@ -56,20 +56,20 @@ module.exports = function(grunt){
                 include: ['watch', 'usemin-include']
             },
             'publish': {
-                compass: ['watch', 'exists', 'transfo-copy', 'compass', 'transfo-combine', 'cssmin', 'oss'],
+                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine', 'cssmin', 'oss'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate', 'uglify', 'oss'],
                 js: ['watch', 'exists', 'uglify', 'oss'],
                 coffee: ['watch', 'exists', 'coffee', 'uglify', 'oss'],
                 css: ['watch', 'exists', 'transfo-combine', 'cssmin', 'oss'],
-                include: ['watch', 'usemin-include']               
+                include: ['watch', 'usemin-include']
             },
             'test': {
-                compass: ['watch', 'exists', 'transfo-copy', 'compass', 'transfo-combine'],
+                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate', 'karma'],
                 js: ['watch', 'exists', 'jshint', 'karma', 'concat'],
                 coffee: ['watch', 'exists', 'coffee', 'karma'],
                 css: ['watch', 'exists', 'transfo-combine'],
-                include: ['watch', 'usemin-include']            
+                include: ['watch', 'usemin-include']
             },
         },
         clean: {
@@ -85,7 +85,7 @@ module.exports = function(grunt){
             }
         },
         oss: {
-            options: {      
+            options: {
                 objectGen: function(dest){
                     if(dest.indexOf("/") === 0){
                         return dest.substring(1);
@@ -134,8 +134,8 @@ module.exports = function(grunt){
             grunt.registerTask('rebuild', ['app']);
         }else{
             grunt.registerTask('rebuild', ['app:'+app]);
-        }   
-        grunt.task.run('updateDefaultConfig', 'useminConfig:dev', 'rebuild');     
+        }
+        grunt.task.run('updateDefaultConfig', 'useminConfig:dev', 'rebuild');
     });
 
     grunt.registerTask('dev', function(app){
@@ -167,15 +167,15 @@ module.exports = function(grunt){
         var t = "testBuild";
         if(app) t += ":" + app;
         grunt.task.run(t, 'watch:app');
-    }); 
+    });
 
     grunt.registerTask('releaseBuild', function(app){
         if(!app){
             grunt.registerTask('rebuild', ['app']);
         }else{
             grunt.registerTask('rebuild', ['app:'+app]);
-        }   
-        grunt.task.run('updateDefaultConfig', 'useminConfig:release', 'rebuild');     
+        }
+        grunt.task.run('updateDefaultConfig', 'useminConfig:release', 'rebuild');
     });
 
     grunt.registerTask('release', function(app){
@@ -193,7 +193,7 @@ module.exports = function(grunt){
         }else{
             grunt.registerTask('rebuild', ['app:'+app]);
             grunt.task.run('versionhash', 'updateDefaultConfig', 'useminConfig:publish', 'rebuild');
-        }  
+        }
     });
 
     grunt.registerTask('upload', 'oss');
