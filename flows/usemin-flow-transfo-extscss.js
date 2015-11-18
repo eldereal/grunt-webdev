@@ -1,11 +1,14 @@
 var path = require("path");
 var fs = require("fs");
 var crypto = require("crypto");
+var transfoUnifyurl = require('transfo-unifyurl');
 
 function createTransfoUnifyUrlConfig(opt, base){
     if(!base) base = {};
     if(!base.transforms) base.transforms = [];
-    base.transforms.push(require('transfo-unifyurl'));
+    for(var pname in opt){
+        base.transforms.push(transfoUnifyurl(pname));
+    }
     base.unifyurl = opt;
     return base;
 }
@@ -23,7 +26,18 @@ module.exports = function(grunt, opt){
                     exts.push(ext);
                 }
             });
-            var options = createTransfoUnifyUrlConfig({dest: 'assets', url: '../../../transfo/assets', extensions: exts});
+            var options = createTransfoUnifyUrlConfig({
+                "url": {
+                    dest: 'assets',
+                    url: '../../../transfo/assets',
+                    extensions: exts,
+                },
+                "import": {
+                    dest: '.',
+                    url: '.',
+                    extensions: ['.scss'],
+                }
+            });
             if(opt){
             	if(opt.transforms){
             		options.transforms = options.transforms.concat(opt.transforms);
