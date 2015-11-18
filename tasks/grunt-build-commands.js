@@ -40,7 +40,7 @@ module.exports = function(grunt){
                 }
             },
             'dev': {
-                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine'],
+                compass: ['watch', 'exists', 'transfo-scss', 'compass', 'transfo-combine'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate'],
                 js: ['watch', 'exists', 'concat'],
                 coffee: ['watch', 'exists', 'coffee'],
@@ -48,7 +48,7 @@ module.exports = function(grunt){
                 include: ['watch', 'usemin-include']
             },
             'release': {
-                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine', 'cssmin'],
+                compass: ['watch', 'exists', 'transfo-scss', 'compass', 'transfo-combine', 'cssmin'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate', 'uglify'],
                 js: ['watch', 'exists', 'uglify'],
                 coffee: ['watch', 'exists', 'coffee', 'uglify'],
@@ -56,7 +56,7 @@ module.exports = function(grunt){
                 include: ['watch', 'usemin-include']
             },
             'publish': {
-                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine', 'cssmin', 'oss'],
+                compass: ['watch', 'exists', 'transfo-scss', 'compass', 'transfo-combine', 'cssmin', 'oss'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate', 'uglify', 'oss'],
                 js: ['watch', 'exists', 'uglify', 'oss'],
                 coffee: ['watch', 'exists', 'coffee', 'uglify', 'oss'],
@@ -64,7 +64,7 @@ module.exports = function(grunt){
                 include: ['watch', 'usemin-include']
             },
             'test': {
-                compass: ['watch', 'exists', 'transfo-extscss', 'compass', 'transfo-combine'],
+                compass: ['watch', 'exists', 'transfo-scss', 'compass', 'transfo-combine'],
                 ngtemplate: ['watch', 'exists', 'ngtemplate', 'karma'],
                 js: ['watch', 'exists', 'jshint', 'karma', 'concat'],
                 coffee: ['watch', 'exists', 'coffee', 'karma'],

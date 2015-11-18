@@ -1,9 +1,12 @@
 var path = require("path");
+var transfoUnifyurl = require('transfo-unifyurl');
 
-function createTransfoUnifyUrlConfig(opt, base){        
+function createTransfoUnifyUrlConfig(opt, base){
     if(!base) base = {};
     if(!base.transforms) base.transforms = [];
-    base.transforms.push(require('transfo-unifyurl'));
+    for(var pname in opt){
+        base.transforms.push(transfoUnifyurl(pname));
+    }
     base.unifyurl = opt;
     return base;
 }
@@ -19,13 +22,15 @@ module.exports = function(grunt, opt){
             });
 
             var options = createTransfoUnifyUrlConfig({
-                dest: '../assets', 
-                url: '../assets', 
-                extensions: ['.css'],
-                callback: function(from, to, toUrl){
-                    var output = path.join(path.dirname(path.join(context.outDir, block.dest)), toUrl);
-                    var f = path.relative(context.outDir, output);
-                    grunt.task.run("useminAddFile:" + f+":"+to);
+                "url":{
+                    dest: '../assets',
+                    url: '../assets',
+                    extensions: ['.css'],
+                    callback: function(from, to, toUrl){
+                        var output = path.join(path.dirname(path.join(context.outDir, block.dest)), toUrl);
+                        var f = path.relative(context.outDir, output);
+                        grunt.task.run("useminAddFile:" + f+":"+to);
+                    }
                 }
             });
             if(opt){
@@ -37,7 +42,7 @@ module.exports = function(grunt, opt){
             		options[k] = opt[k];
             	}
             }
-            
+
             var targetName = block.dest + "-combine";
             var generated = context.options[targetName] = {
                 files: [{
@@ -46,16 +51,16 @@ module.exports = function(grunt, opt){
                     nonull: true
                 }],
                 options: options
-            };               
-            
+            };
+
             context.outFiles = [block.dest];
 
             if(context.last){
                 grunt.task.run("useminAddFile:" + block.dest +":"+path.join(context.outDir, block.dest));
             }
 
-            grunt.task.run("transfo:"+targetName);                       
+            grunt.task.run("transfo:"+targetName);
             return true;
         }
-    };        
+    };
 };
